@@ -1,0 +1,18 @@
+{
+  "name": "proj006",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "pjsalomao",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "path": "^0.12.7",
+    "pg": "^7.4.1",
+    "twit": "^2.2.9"
+  }
+}

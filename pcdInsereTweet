@@ -1,0 +1,16 @@
+CREATE OR REPLACE FUNCTION InsereTweet(p_tweet_id bigint, p_follower_id bigint, p_text text)
+
+      RETURNS void AS $InsereTweet$
+      BEGIN
+      	--INSERT INTO follower
+      	--select p_follower_id, p_follower_name, p_follower_description, p_follower_fol_count, p_follower_location 
+      	--where not exists (select 1 where follower.follower_id = p_follower_id);
+        if not exists (select 1 from tweet where tweet_id = p_tweet_id and follower_id = p_follower_id) then
+        	INSERT INTO tweet(tweet_id, follower_id, text)
+      	 	values(p_tweet_id, p_follower_id, p_text);  
+        end if;
+      END;
+      $InsereTweet$ LANGUAGE 'plpgsql';
+      
+--CREATE TRIGGER InsereFollower BEFORE INSERT OR UPDATE ON follower
+  --  FOR EACH ROW EXECUTE PROCEDURE InsereFollower();

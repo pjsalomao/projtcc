@@ -1,0 +1,25 @@
+create table usuario (
+		user_id bigint,
+    	user_screen_name varchar(255),
+    	user_description text,
+    	user_followers_count integer,
+    	user_location varchar(255),
+    	primary key (user_id)
+	);
+
+create table follower(
+		follower_id bigint,
+    	follower_name varchar(255),
+    	follower_description text,
+    	follower_fol_count integer,
+    	follower_location varchar(255)	,
+    	primary key(follower_id)
+);
+
+create table tweet(
+		tweet_id bigint,
+    	follower_id bigint,
+    	text text,
+    	primary key(follower_id,tweet_id),
+    	foreign key (follower_id) references follower(follower_id)
+);
