@@ -1,0 +1,26 @@
+{
+  "name": "coldattwi",
+  "version": "1.0.7",
+  "description": "collect data from twitter",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pjsalomao/projtcc.git"
+  },
+  "author": "pjsalomao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pjsalomao/projtcc/issues"
+  },
+  "homepage": "https://github.com/pjsalomao/projtcc#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "path": "^0.12.7",
+    "pg": "^7.4.3",
+    "twit": "^2.2.10"
+  }
+}
