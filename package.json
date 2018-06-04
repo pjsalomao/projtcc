@@ -1,0 +1,24 @@
+{
+  "name": "app_v1.0.8",
+  "version": "1.0.8",
+  "description": "coleta de dados do twitter",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pjsalomao/projtcc.git"
+  },
+  "author": "pjsalomao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pjsalomao/projtcc/issues"
+  },
+  "homepage": "https://github.com/pjsalomao/projtcc#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "pg": "^7.4.3",
+    "twit": "^2.2.10"
+  }
+}
