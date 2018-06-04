@@ -119,16 +119,17 @@ function gotFriend(err, data, response)
       })
       usuario2 = friends[j].id;
       //T.get('followers/list', {user_id: usuario2, count: 200}, gotData);
+      T.get('followers/ids',{screen_name: friends[j].screen_name},getFollowerCursor);
       //T.get('users/show', {user_id: usuario2, screen_name: friends[j].screen_name}, getFollowerCursor);
       
       //console.log('teste ok' + usuario2);
-      T.get('statuses/user_timeline',{screen_name: 'nubank', count: 200}, getTweet);
+      //T.get('statuses/user_timeline',{screen_name: 'nubank', count: 200}, getTweet);
     }
     //T.get('statuses/user_timeline',{user_id: usuario2, count: 200}, getTweetInter);
   }
 }
 
-
+/*
  //T.get('followers/list', params, gotData);
 
 //get followers list
@@ -265,58 +266,40 @@ function getTweet(err, data, response)
       })
    T.get('statuses/user_timeline',{screen_name: followers.screen_name, count: 200}, getTweet);
 }
+*/
+//T.get('followers/ids',{screen_name: friends[j].screen_name},getFollowerCursor);
 
 function getFollowerCursor(err, data, response)
 {
 
     var sname = data.screen_name;
     var cursor = -1;
-    var api_path = "https://api.twitter.com/1.1/followers/list.json?screen_name=" + sname;
-    console.log(api_path);
-    const fs = require('fs');
-    
 
     do{
-        var url_with_cursor = api_path + "&cursor=" + cursor;
+        var url_with_cursor = response + "&cursor=" + cursor;
+        //response_dictionary = data(url_with_cursor)
+        cursor = data['next_cursor']
+        //console.log(data['ids']);
+        //for (i=0; i<5000; i++)
+        //{
+          //console.log(data['ids'][i])
+          //var idss = data['ids']
+          T.get('users/lookup', {user_id: idss}, getFollowerShow);
+        //}
         
-        request(url_with_cursor, { json: true }, (err, res, body) => {
-
-            if (err) { return console.log(err); }
-              console.log(body.url);
-              console.log(body.explanation);
-              cursor = body[ 'next_cursor' ];
-        });
-
-        /*var response = https.get(url_with_cursor, (resp) => {
-            let result = '';
-           
-            // A chunk of data has been recieved.
-            resp.on('result', (chunk) => {
-              result += chunk;
-            });
-           
-            // The whole response has been received. Print out the result.
-            resp.on('end', () => {
-              console.log(JSON.parse(result).explanation);
-            });
-           
-          }).on("error", (err) => {
-            console.log("Error: " + err.message);
-        });*/
-
-        /*var response_dictionary = request(url_with_cursor,
-         function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            console.log(body) // Aqui podes ver o HTML da página pedida. 
-        }
-        })*/
-
-       // cursor = body[ 'next_cursor' ];
     } while (cursor != 0);
-
-    
 
     //let bulk = JSON.stringify(response_dictionary);
     //fs.writeFileSync('response2.json', data);
 
 }
+
+//T.get('users/show', {user_id: data['ids'][i]}, getFollowerShow);
+function getFollowerShow(err,data,response)
+{
+    
+    for (var i=0; i<5; i++)
+      console.log(data[i]);
+}
+
+
