@@ -278,13 +278,24 @@ function getFollowerCursor(err, data, response)
     do{
         var url_with_cursor = response + "&cursor=" + cursor;
         //response_dictionary = data(url_with_cursor)
-        cursor = data['next_cursor']
+        // var idss = data['ids'];
+        // var frase_array = idss.split(Pattern.quote(","));
+
+        for(var i = 0; i < data['ids'].length; i++) {
+           //console.log(data['ids'][i]);
+           var idss = data['ids'][i];
+           console.log("--"+i+"--   "+idss);
+           T.get('users/show', {user_id: idss}, getFollowerShow);
+         }
+         
+        // cursor  = 0;  
+        cursor = data['next_cursor'];
         //console.log(data['ids']);
         //for (i=0; i<5000; i++)
         //{
           //console.log(data['ids'][i])
           //var idss = data['ids']
-          T.get('users/lookup', {user_id: idss}, getFollowerShow);
+         // T.get('users/lookup', {user_id: idss}, getFollowerShow);
         //}
         
     } while (cursor != 0);
@@ -294,12 +305,45 @@ function getFollowerCursor(err, data, response)
 
 }
 
+
 //T.get('users/show', {user_id: data['ids'][i]}, getFollowerShow);
 function getFollowerShow(err,data,response)
 {
     
-    for (var i=0; i<5; i++)
-      console.log(data[i]);
+    if (err){
+      console.log("erro");
+      return;
+    }
+
+    else if (data == undefined){
+      console.log("erro undefined");
+      return;
+    }
+    else{
+      var followers = data;
+    
+    //for (var i=0; i<5; i++)
+    console.log(followers);
+    const query = {
+    name: 'insereFollower',
+    text: 'select insereFollower($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)',
+    values: [followers.id, followers.screen_name, followers.name, followers.description,
+      followers.followers_count, followers.location, followers.profile_location, followers.url,
+      followers.created_at, followers.protected, followers.following, followers.follow_request_sent, usuario2]
+    }
+    // values: [followers[i].id, followers[i].screen_name, followers[i].name, followers[i].description,
+    //   followers[i].followers_count, followers[i].location, followers[i].profile_location, followers[i].url,
+    //   followers[i].created_at, followers[i].protected, followers[i].following, followers[i].follow_request_sent, usuario2]
+    
+
+    client.query(query, (err, res) => {
+      if (err) {
+        console.log(err.stack)
+      } else {
+        console.log(res.rows[0])
+        }
+      })
+  }
 }
 
 
